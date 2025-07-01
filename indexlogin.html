@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Moderno</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #acb6e5);
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+    }
+
+    .login-card {
+      background: #fff;
+      padding: 40px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .login-card h2 {
+      margin-bottom: 25px;
+      color: #333;
+      text-align: center;
+    }
+
+    .form-group {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 14px 40px 14px 14px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+
+    .form-group input:focus {
+      border-color: #007BFF;
+      outline: none;
+    }
+
+    .form-group .icon {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #888;
+      font-size: 18px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #mensaje {
+      margin-top: 20px;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .error {
+      color: #e74c3c;
+    }
+
+    .success {
+      color: #2ecc71;
+    }
+
+    .hint {
+      color: #555;
+      font-size: 13px;
+      margin-top: 5px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="login-card">
+    <h2>Iniciar Sesión</h2>
+
+    <div class="form-group">
+      <input type="text" id="username" placeholder="Nombre de usuario" maxlength="6">
+      <span class="icon">👤</span>
+    </div>
+
+    <div class="form-group">
+      <input type="password" id="password" placeholder="Contraseña">
+      <span class="icon">🔒</span>
+    </div>
+
+    <button onclick="verificar()">Ingresar</button>
+
+    <p id="mensaje"></p>
+    <div id="hint" class="hint"></div>
+  </div>
+
+  <script>
+    function verificar() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const mensaje = document.getElementById('mensaje');
+      const hint = document.getElementById('hint');
+
+      const soloNumeros = /^\d+$/;
+      const formatoContrasena = /^[A-Z][\?\!\@\#\$\%\&\*][0-9]{7}$/;
+      const usuarioCorrecto = "200706";
+      const contrasenaCorrecta = "Z?2345678";
+
+      mensaje.textContent = "";
+      mensaje.className = "";
+      hint.textContent = "";
+
+      // Validar usuario
+      if (!soloNumeros.test(username)) {
+        mensaje.textContent = "Nombre incorrecto: solo se permiten números.";
+        mensaje.className = "error";
+        hint.textContent = "Ejemplo: 203909";
+        return;
+      }
+
+      if (username !== usuarioCorrecto) {
+        mensaje.textContent = "Nombre incorrecto.";
+        mensaje.className = "error";
+        hint.textContent = "Asegúrese de ingresar el número exacto.";
+        return;
+      }
+
+      // Validar contraseña
+      if (!formatoContrasena.test(password)) {
+        mensaje.textContent = "Contraseña inválida: formato incorrecto.";
+        mensaje.className = "error";
+        hint.textContent = "Debe comenzar con mayúscula, incluir un carácter especial y tener 7 números. Ej: A13$00678";
+        return;
+      }
+
+      if (password !== contrasenaCorrecta) {
+        mensaje.textContent = "Contraseña incorrecta.";
+        mensaje.className = "error";
+        hint.textContent = "Verifique mayúsculas, símbolos y números.";
+        return;
+      }
+
+      mensaje.textContent = "✅ Acceso concedido.";
+      mensaje.className = "success";
+      hint.textContent = "";
+    }
+  </script>
+
+</body>
+</html>
+
